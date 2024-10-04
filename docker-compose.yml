@@ -1,0 +1,27 @@
+services:
+  web:
+    build:
+      context: ./app  
+    ports:
+      - "5030:5030"
+    environment:
+      DB_HOST: db  
+      DB_NAME: test_db
+      DB_USER: postgres
+      DB_PASSWORD: password
+    depends_on:
+      - db
+    volumes:
+      - ./app:/app  
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: test_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/postgresql/data  
+
